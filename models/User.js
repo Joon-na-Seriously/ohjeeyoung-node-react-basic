@@ -34,7 +34,7 @@ const userSchema = mongoose.Schema({
     }
 })
 
-userSchema.pre('save', function(next){
+userSchema.pre('save', function(next){ //mongoose에서 가져온 메소드, 괄호 안에 적힌 것을 하기전에 수행하는 작업
     var user = this;
 
     if(user.isModified('password')){
@@ -48,8 +48,10 @@ userSchema.pre('save', function(next){
                 next()
             })
         })
+    } else{
+        next()
     }
-}) //mongoose에서 가져온 메소드, 괄호 안에 적힌 것을 하기전에 수행하는 작업
+})
 
 const User = mongoose.model('User', userSchema) // 모델로 스키마 감싸주기
 
